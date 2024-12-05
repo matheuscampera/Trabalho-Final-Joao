@@ -35,6 +35,7 @@ public class AppointmentController {
     @PostMapping
     public ResponseEntity<Object> createAppointment(@RequestBody Appointment appointment) {
         try {
+            System.out.println(appointment);
             Patient patient = patientService.getPatientById(appointment.getPatient().getId())
                     .orElseThrow(() -> new RuntimeException("Paciente não encontrado"));
 
@@ -45,6 +46,7 @@ public class AppointmentController {
             appointment.setDoctor(doctor);
 
             Appointment createdAppointment = appointmentService.createAppointment(appointment);
+            
 
             return ResponseEntity.status(HttpStatus.CREATED).body(createdAppointment);
         } catch (RuntimeException e) {
